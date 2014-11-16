@@ -32,6 +32,7 @@ if ('development' == app.get('env')) {
 //route
 app.get('/grails/signup', gumball.signup);
 app.get('/list', gumball.list);
+app.get('/', gumball.list);
 app.get('/getDetails/:id', gumball.getDetails);
 app.post('/signup/save', gumball.save);
 app.get('/delete/:id', gumball.del);
