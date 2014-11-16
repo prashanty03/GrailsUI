@@ -1,6 +1,6 @@
 
 
-# Yelp
+# NodeJs REST CLient to call grails api
 
 
 
