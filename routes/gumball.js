@@ -15,10 +15,10 @@ exports.save = function(req, res){
 	console.log(data);
 	var rest = require('restler');
 	
-	rest.post('http://localhost:8080/NewGumBall/machines', {
+	rest.post('http://newgumball.cfapps.io/machines', {
 		  data: data,
 		}).on('complete', function(data, response) {
-			 rest.get('http://localhost:8080/NewGumBall/machines').on('complete', function(result) {
+			 rest.get('http://newgumball.cfapps.io/machines').on('complete', function(result) {
 				  if (result instanceof Error) {
 				    console.log('Error:', result.message);
 				    this.retry(5000); // try again after 5 sec
@@ -34,7 +34,7 @@ exports.save = function(req, res){
 }
 exports.list = function(req, res){
 	var rest = require('restler');
-	rest.get('http://localhost:8080/NewGumBall/machines').on('complete', function(result) {
+	rest.get('http://newgumball.cfapps.io/machines').on('complete', function(result) {
 		  if (result instanceof Error) {
 		    console.log('Error:', result.message);
 		    this.retry(5000); // try again after 5 sec
@@ -48,7 +48,7 @@ exports.list = function(req, res){
 exports.getDetails = function(req,res){
 	var id = req.params.id;
 	var rest = require('restler');
-	rest.get('http://localhost:8080/NewGumBall/machines/'+id).on('complete', function(result) {
+	rest.get('http://newgumball.cfapps.io/machines/'+id).on('complete', function(result) {
 		  if (result instanceof Error) {
 		    console.log('Error:', result.message);
 		    this.retry(5000); // try again after 5 sec
@@ -62,7 +62,7 @@ exports.getDetails = function(req,res){
 exports.del = function(req, res){
 	var id = req.params.id;
 	var rest = require('restler');
-	rest.del('http://localhost:8080/NewGumBall/machines/'+id).on('complete', function(result) {
+	rest.del('http://newgumball.cfapps.io/machines/'+id).on('complete', function(result) {
 		  if (result instanceof Error) {
 		    console.log('Error:', result.message);
 		    this.retry(5000); // try again after 5 sec
@@ -83,7 +83,7 @@ exports.update = function(req, res){
 	}
 	console.log(data);
 	var rest = require('restler');
-	rest.putJson('http://localhost:8080/NewGumBall/machines/'+id, data).on('complete', function(data, response) {
+	rest.putJson('http://newgumball.cfapps.io/machines/'+id, data).on('complete', function(data, response) {
 		res.render('signup');
 	});
 }
