@@ -36,7 +36,7 @@ app.get('/', gumball.list);
 app.get('/getDetails/:id', gumball.getDetails);
 app.post('/signup/save', gumball.save);
 app.get('/delete/:id', gumball.del);
-app.post('/update/:id', gumball.update);
+app.post('/getDetails/:id', gumball.update);
 
 app.use(app.router);
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
