@@ -25,32 +25,31 @@
                               <h2>Welcome to the Gumball Machine</h2>
                               <fieldset class="hr-line"></fieldset>
                               <form action=
-                                 "/update/<%=result.id%>" class=
+                                 "/getDetails/<%=id%>" class=
                                  "yform signup-form city-hidden" id=
                                  "signup-form" method="post" name=
                                  "signup-form">
+                                 <input type="hidden" value="<%=state%>" name="state">
                                  <label class=
                                     "placeholder-sub">Serial No.</label>
                                  <input id="email" name="serialNumber"
                                     placeholder="Serial #" required="required"
-                                    type="text" value="<%=result.serialNumber%>"> 
+                                    type="text" readOnly value="<%=result.serialNumber%>"> 
                                  <label class=
                                     "placeholder-sub">Email</label>   
                                  <input id="modelNumber" name="modelNumber"
-                                    placeholder="Model #" required="required"
+                                    placeholder="Model #" readOnly required="required"
                                     type="text" value="<%=result.modelNumber%>"> <label class=
                                     "placeholder-sub">Count of Gumballs</label>
                                  <input id="countOfGumballs" name="count"
                                     placeholder="Count" required=
-                                    "required" type="number" value="<%=result.count%>">
+                                    "required" readOnly type="number" value="<%=result.count%>">
                                  <hr>
-                                 <button class=
-                                    "ybtn ybtn-primary ytype disable-on-submit submit signup-button"
-                                    id="signup-button" type="submit" value=
-                                    "Sign Up"><span>Update</span></button> 
+                                 <input id="insert" type="submit" value=
+                                    "Insert Quarter" name="event"> 
+                                  <input id="crank" type="submit" value=
+                                    "Turn Crank" name="event"> 
                               </form>
-                              <a class="ybtn ybtn-primary header-button sign-up" id="header-sign-up" href="/delete/<%=result.id%>">Delete</a>
-                              <a class="ybtn ybtn-primary header-button sign-up" id="header-sign-up" href="/list">Back</a>
                            </div>
                         </div>
                      </div>

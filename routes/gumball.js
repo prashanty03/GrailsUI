@@ -5,6 +5,10 @@ exports.signup = function(req, res){
 	res.render('signup', {page_title:"Sign Up"});
 }
 
+exports.turnCrank = function(req, res){
+	var input = JOSN.parse(JSON.stringify(req.bosy));
+	
+}
 exports.save = function(req, res){
 	var input = JSON.parse(JSON.stringify(req.body));
 	var data = {
@@ -54,7 +58,7 @@ exports.getDetails = function(req,res){
 		    this.retry(5000); // try again after 5 sec
 		  } else {
 			  console.log(result);
-			  res.render('details', {result:result});
+			  res.render('details', {result:result, id: id, state:'No Coin'});
 		  }
 		});
 }
@@ -76,14 +80,44 @@ exports.del = function(req, res){
 exports.update = function(req, res){
 	var id = req.params.id;
 	var input = JSON.parse(JSON.stringify(req.body));
+	var state = input.state;
+	var event = input.event;
+	
 	var data = {
+			id : id,
 			serialNumber : input.serialNumber,
 			modelNumber : input.modelNumber,
 			count : input.count
 	}
 	console.log(data);
-	var rest = require('restler');
-	rest.putJson('http://newgumball.cfapps.io/machines/'+id, data).on('complete', function(data, response) {
-		res.render('signup');
-	});
+	if(event=="Insert Quarter"){
+		if(state=="No Coin"){
+			//state = "Has Coin";
+			res.render('details', {result:data, id:id, state:'Has Coin'});
+		}
+		else
+			res.render('details', {result:data, id:id, state:state});
+	}
+	else{
+		if(state=="No Coin"){
+			res.render('details', {result:data,id:id, state:state})
+		}
+		else if(state=="Has Coin"){
+			if(input.count > 0){
+				var dataNew = {
+						serialNumber : input.serialNumber,
+						modelNumber : input.modelNumber,
+						count : input.count-1
+				}
+				var rest = require('restler');
+				rest.putJson('http://newgumball.cfapps.io/machines/'+id, dataNew).on('complete', function(data, response) {
+					res.render('details', {result:dataNew, id:id, state:'No Coin'});
+				});
+			}
+			else {
+				res.render('details', {result:data, id : id, state:state});
+			}
+			
+		}
+	}
 }
