@@ -58,7 +58,7 @@ exports.getDetails = function(req,res){
 		    this.retry(5000); // try again after 5 sec
 		  } else {
 			  console.log(result);
-			  res.render('details', {result:result, id: id, state:'No Coin'});
+			  res.render('details', {result:result, id: id, state:'No Coin', Msg:'Please Insert Coin'});
 		  }
 		});
 }
@@ -93,14 +93,14 @@ exports.update = function(req, res){
 	if(event=="Insert Quarter"){
 		if(state=="No Coin"){
 			//state = "Has Coin";
-			res.render('details', {result:data, id:id, state:'Has Coin'});
+			res.render('details', {result:data, id:id, state:'Has Coin', Msg:'Coin Inserted'});
 		}
 		else
-			res.render('details', {result:data, id:id, state:state});
+			res.render('details', {result:data, id:id, state:state, Msg:'Coin already Inserted'});
 	}
 	else{
 		if(state=="No Coin"){
-			res.render('details', {result:data,id:id, state:state})
+			res.render('details', {result:data,id:id, state:state, Msg:'Please Insert Coin'})
 		}
 		else if(state=="Has Coin"){
 			if(input.count > 0){
@@ -111,11 +111,11 @@ exports.update = function(req, res){
 				}
 				var rest = require('restler');
 				rest.putJson('http://newgumball.cfapps.io/machines/'+id, dataNew).on('complete', function(data, response) {
-					res.render('details', {result:dataNew, id:id, state:'No Coin'});
+					res.render('details', {result:dataNew, id:id, state:'No Coin', Msg:'Please Collect gumball'});
 				});
 			}
 			else {
-				res.render('details', {result:data, id : id, state:state});
+				res.render('details', {result:data, id : id, state:state, Msg:'Inventory Zero'});
 			}
 			
 		}
